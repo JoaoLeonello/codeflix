@@ -2,8 +2,8 @@
 
 ### Codeflix, what is it? Features:
 
-- A kind of Netflix;
-- It is signed by the customer (we will have a specific microservice for this purpose);
+- It's a kind of a Netflix;
+- It has customer subscription (we will have a specific microservice for this purpose);
 - Video catalog for browsing;
 - Video playback;
 - Full text search in the catalog;
@@ -24,12 +24,12 @@
 - The scaling process can be configured at the microservice level;
 - All microservices will work stateless;
 - When uploading any type of asset, it will be stored in Cloud Storage;
-- The scaling process will be to increase the number of K8s PODs;
+- The scaling process strategy will be increasing the number of K8s PODs;
 - The autoscaling process will be through HPA (Horizontal pod autoscaler);
 
 ### Service Discover
 
-- It will not be necessary to use Consul, K8s will do this work;
+- It will not be necessary to use Consul, K8s will do this instead;
 
 ### Eventual Consistency
 
@@ -41,7 +41,7 @@
 ### Messaging
 
 - Communication between microservices using RabbitMQ;
-- There is no single truth about the choice made;
+- There is no single truth about the choice made (as it could be Kafka, SNS, etc...);
 
 ### Resilience and Self healing
 
@@ -76,9 +76,7 @@
 - For each PR a CI process will be generated using Github Actions;
 - The CI process will: Upload the docker application, Run the tests, Use sonarqube;
 - In case the merge happens, the CD process takes place;
-- Will generate the Docker image;
-- Upload the image to a container registry;
-- Will execute the deployment on K8s;
+- The CD process will: Generate the Docker image, Upload the image to a container registry, Execute the deployment on K8s;
 
 ### Kubernetes
 
