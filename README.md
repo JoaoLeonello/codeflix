@@ -1,22 +1,40 @@
 # Codeflix
 
+### Codeflix, what is it? Features:
+
+- A kind of Netflix;
+- It is signed by the customer (we will have a specific microservice for this purpose);
+- Video catalog for browsing;
+- Video playback;
+- Full text search in the catalog;
+- Processing and encoding of videos (Made in Go);
+- Administration of the video catalog;
+- Administration of the subscription service;
+- Authentication;
+
+### Architectural decisions
+
+- Architecture based on microservices;
+- Technology suitable for each context (e.g. Go to process videos);
+- Each microservice has its own CI/CD process;
+
 ### Scalability
 
 - It will be a horizontal scale, made with k8s.
 - The scaling process can be configured at the microservice level;
-- All microservices will work statelessly;
+- All microservices will work stateless;
 - When uploading any type of asset, it will be stored in Cloud Storage;
-- The scaling process will not increase the number of K8s PODs;
-- The autoscaling process will be through the HPA (Horizontal pod autoscaler);
+- The scaling process will be to increase the number of K8s PODs;
+- The autoscaling process will be through HPA (Horizontal pod autoscaler);
 
-### Service discovery
+### Service Discover
 
 - It will not be necessary to use Consul, K8s will do this work;
 
 ### Eventual Consistency
 
 - Each microservice will have its own database and communication will be asynchronous;
-- eventually the data may become inconsistent;
+- Eventually the data may become inconsistent;
 - The microservice will only duplicate the data necessary for its context;
 - We will use Kafka Connect as a data replicator;
 
@@ -25,18 +43,18 @@
 - Communication between microservices using RabbitMQ;
 - There is no single truth about the choice made;
 
-### Resilience and Self-Healing
+### Resilience and Self healing
 
-- To ensure resilience if one or more microservices go offline, queues are essential;
-- If a message is forwarded in the wrong pattern to a microservice, it may be forwarded to a dead letter queue;
-- If a container does not have specific traffic, we will have a circuit breaker in action and it will be recreated or restarted;
+- To ensure resilience if one or more microservices go down, queues are essential;
+- If a message is forwarded in the wrong pattern to a microservice, it can be forwarded to a dead-letter queue;
+- If a container cannot handle certain traffic, we will have a circuit breaker in action and it will be recreated or restarted;
 
 ### Authentication
 
-- Keychain;
-- OpenID connection;
+- Keycloak;
+- OpenID Connect;
 - Customization of the theme using react;
-- Public key sharing with services for token authentication selection;
+- Sharing of public key with services to verify the authenticity of tokens;
 - Various types of ACL;
 - Authentication flow for frontend and backend;
 
@@ -45,7 +63,7 @@
 - Backend Admin of the Video Catalog;
 - Frontend Admin of the Video Catalog;
 - Video Encoder;
-- Video Catalog Backend API;
+- Video Catalog API backend;
 - Frontend of the Video Catalog;
 - Subscription to Codeflix by the customer;
 - Authentication between Microservices with Keycloak;
@@ -59,18 +77,18 @@
 - The CI process will: Upload the docker application, Run the tests, Use sonarqube;
 - In case the merge happens, the CD process takes place;
 - Will generate the Docker image;
-- Will upload the image to a container registry;
+- Upload the image to a container registry;
 - Will execute the deployment on K8s;
 
-###Kubernetes
+### Kubernetes
 
 - Managed cluster
-- Deploy;
-- Startup, Readiness and Liveness Probe for self-healing;
+- Deployment;
+- Startup, Readiness and Liveness Probe for self healing;
 - HPA to scale horizontally;
 
 ### Cloud providers
 
 - IaC (Infra as code)
--Terraform, Ansible
+- Terraform, Ansible
 - AWS, GCP and Azure;
