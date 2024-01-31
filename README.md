@@ -1,77 +1,76 @@
 # Codeflix
-This project compiles my knowledge in development
 
-### Escalabilidade
+### Scalability
 
-- Será uma escala horizontal, feito com k8s.
-- O processo de escala poderá ser configurado a nível de microserviço;
-- Todos os microserviços trabalharão de forma stateless;
-- Quando utilizado upload de qualquer tipo de asset, será armazenado em Cloud Storage;
-- O processo de escala será no aumento na quantidade de PODs do K8s;
-- O processo de autoscalling será através de HPA (Horizontal pod autoscaler);
+- It will be a horizontal scale, made with k8s.
+- The scaling process can be configured at the microservice level;
+- All microservices will work statelessly;
+- When uploading any type of asset, it will be stored in Cloud Storage;
+- The scaling process will not increase the number of K8s PODs;
+- The autoscaling process will be through the HPA (Horizontal pod autoscaler);
 
-### Service Discover
+### Service discovery
 
-- Não será necessário usar Consul, o K8s fará esse trabalho;
+- It will not be necessary to use Consul, K8s will do this work;
 
-### Consistência Eventual
+### Eventual Consistency
 
-- Cada microserviço terá seu próprio banco de dados e a comunicação será assíncrona;
-- Eventualmente os dados poderão ficar inconsistentes;
-- O microsserviço duplicará apenas os dados necessários para o seu contexto;
-- Usaremos Kafka Connect como replicador de dados;
+- Each microservice will have its own database and communication will be asynchronous;
+- eventually the data may become inconsistent;
+- The microservice will only duplicate the data necessary for its context;
+- We will use Kafka Connect as a data replicator;
 
-### Mensageria
+### Messaging
 
-- Comunicação entre microservices usando RabbitMQ;
-- Não há uma verdade única sobre a escoha realizada;
+- Communication between microservices using RabbitMQ;
+- There is no single truth about the choice made;
 
-### Resiliência e Self healing
+### Resilience and Self-Healing
 
-- Para garantir a resiliência caso um ou mais microserviços fiquem fora do ar, as filas são essenciais;
-- Caso uma mensagem seja encaminhada no padrão errado para algum microserviço, esta pode ser encaminhada para um dead-letter queue;
-- Caso um container não aguente determinado tráfego, teremos um circuit breaker em ação e ele será recriado ou reiniciado;
+- To ensure resilience if one or more microservices go offline, queues are essential;
+- If a message is forwarded in the wrong pattern to a microservice, it may be forwarded to a dead letter queue;
+- If a container does not have specific traffic, we will have a circuit breaker in action and it will be recreated or restarted;
 
-### Autenticação
+### Authentication
 
-- Keycloak;
-- OpenID Connect;
-- Customização do tema usando react;
-- Compartilhamento de chave pública com os serviços para a verificação de autenticadade dos tokens;
-- Diversos tipos de ACL;
-- Flow de autenticação para frontend e backend;
+- Keychain;
+- OpenID connection;
+- Customization of the theme using react;
+- Public key sharing with services for token authentication selection;
+- Various types of ACL;
+- Authentication flow for frontend and backend;
 
-### Microserviços:
+### Microservices:
 
-- Backend Admin do Catálogo de Vídeos;
-- Frontend Admin do Catálogo de Vídeos;
-- Encoder de Vídeos;
-- Backend API do Catálogo de Vídeos;
-- Frontend do Catálogo de Vídeos;
-- Assinatura do Codeflix pelo cliente;
-- Autenticação entre Microserviços com Keycloak;
-- Comunicação assíncrona entre os Microserviços com RabbitMQ;
-- Replicação de dados utilizando Apache Kafka e Kafka Connect;
+- Backend Admin of the Video Catalog;
+- Frontend Admin of the Video Catalog;
+- Video Encoder;
+- Video Catalog Backend API;
+- Frontend of the Video Catalog;
+- Subscription to Codeflix by the customer;
+- Authentication between Microservices with Keycloak;
+- Asynchronous communication between Microservices with RabbitMQ;
+- Data replication using Apache Kafka and Kafka Connect;
 
-### Desenvolvimento e deploy
+### Development and deployment
 
-- Docker é o protagonista do ambiente de desenvolvimento;
-- Para cada PR será gerado um processo de CI usando Github Actions;
-- O processo de CI fará: Subir a aplicação docker, Executar os testes, Utilizar o sonarqube;
-- No caso de acontecer o merge, o processo de CD acontece;
-- Fará a geração da imagem Docker;
-- Realizará o upload da imagem em um container registry;
-- Executará o deploy no K8s;
+- Docker is the protagonist of the development environment;
+- For each PR a CI process will be generated using Github Actions;
+- The CI process will: Upload the docker application, Run the tests, Use sonarqube;
+- In case the merge happens, the CD process takes place;
+- Will generate the Docker image;
+- Will upload the image to a container registry;
+- Will execute the deployment on K8s;
 
-### Kubernetes
+###Kubernetes
 
-- Cluster gerenciado
+- Managed cluster
 - Deploy;
-- Startup, Readiness e Liveness Probe para self healing;
-- HPA para escalar horizontalmente;
+- Startup, Readiness and Liveness Probe for self-healing;
+- HPA to scale horizontally;
 
 ### Cloud providers
 
 - IaC (Infra as code)
-- Terraform, Ansible
-- AWS, GCP e Azure;
+-Terraform, Ansible
+- AWS, GCP and Azure;
